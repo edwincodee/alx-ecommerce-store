@@ -1,5 +1,9 @@
 @import "tailwindcss";
-@import "tw-animate-css";
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -132,4 +136,4 @@ body {
   body {
     @apply bg-background text-foreground;
   }
-}
+} */
