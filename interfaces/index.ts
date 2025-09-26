@@ -7,3 +7,7 @@ export interface AllProducts {
   category: string;
   rating: { rate: number; count: number };
 }
+
+export interface ProductState {
+  products: AllProducts[];
+}
