@@ -1,4 +1,4 @@
-export interface AllProducts {
+export interface Products {
   id: number;
   title: string;
   price: number;
@@ -9,5 +9,5 @@ export interface AllProducts {
 }
 
 export interface ProductState {
-  products: AllProducts[];
+  products: Products[];
 }
