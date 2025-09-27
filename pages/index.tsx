@@ -6,7 +6,6 @@ import { AppDispatch, RootState } from "@/store/store";
 import { setProducts } from "@/store/productSlice";
 import { Products, ProductState } from "@/interfaces";
 import Card from "@/components/common/Card";
-import Error from "next/error";
 
 export default function Home({ products }: ProductState) {
   const dispatch = useDispatch<AppDispatch>();
