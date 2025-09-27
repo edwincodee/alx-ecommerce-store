@@ -12,9 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
-  const totalItem = useSelector((state: RootState) =>
-    state.cart.cartProucts.reduce((acc, item) => acc + item.quantity, 0)
-  );
+  const totalItem = useSelector((state: RootState) => state.cart.totalCartItem);
 
   const links: string[] = ["Home", "Shop"];
   return (

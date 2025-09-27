@@ -15,6 +15,8 @@ interface ProductPageProps {
 
 const Product: React.FC<ProductPageProps> = ({ product }) => {
   const [toggleInfo, setToggleInfo] = useState<boolean | (() => boolean)>(true);
+  const [quan, setQuan] = useState<number>(1);
+  const [itemPrice, setItemPrice] = useState<number>(0);
 
   const dispatch = useDispatch<AppDispatch>();
   return (
@@ -48,16 +50,38 @@ const Product: React.FC<ProductPageProps> = ({ product }) => {
 
           <div className=" border-t border-gray-200 flex items-center justify-around py-9">
             <div className="flex items-center gap-2 px-4 py-2 font-semibold rounded-full border border-gray-200">
-              <button className="font-bold border-r pr-2 border-gray-300">
+              <button
+                className="font-bold border-r pr-2 border-gray-300"
+                onClick={() => {
+                  if (quan > 1) {
+                    setQuan(quan - 1);
+                    setItemPrice(itemPrice - product?.price);
+                  }
+                }}
+              >
                 <MdOutlineHorizontalRule />
               </button>
-              <span>1</span>{" "}
-              <button className="font-bold border-l pl-2 border-gray-300">
+              <span>{quan}</span>
+              <button
+                className="font-bold border-l pl-2 border-gray-300"
+                onClick={() => {
+                  setQuan(quan + 1);
+                  setItemPrice(itemPrice + product?.price);
+                }}
+              >
                 <MdOutlineAdd />
               </button>
             </div>
             <button
-              onClick={() => dispatch(addToCart(product))}
+              onClick={() =>
+                dispatch(
+                  addToCart({
+                    ...product,
+                    quantity: quan,
+                    itemPrice: itemPrice,
+                  })
+                )
+              }
               className="px-4 py-2 bg-gray-900 text-white rounded-full hover:bg-blue-700 cursor-pointer"
             >
               Add to Cart

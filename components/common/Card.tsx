@@ -1,11 +1,15 @@
 import { Products } from "@/interfaces";
 import Link from "next/link";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
+import { addToCart } from "@/store/cartSlice";
 
 interface PropsProduct {
   product: Products;
 }
 const Card: React.FC<PropsProduct> = ({ product }) => {
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <div
       key={product.id}
@@ -26,7 +30,10 @@ const Card: React.FC<PropsProduct> = ({ product }) => {
         <h5>{product.title.slice(0, 25)} ...</h5>
         <div className="flex justify-between mt-3">
           <p className="text-blue-500">${product.price}</p>
-          <button className="text-sm bg-blue-400 px-2 py-1 rounded-full text-white cursor-pointer">
+          <button
+            className="text-sm bg-blue-400 px-2 py-1 rounded-full text-white cursor-pointer"
+            onClick={() => dispatch(addToCart(product))}
+          >
             Add to cart
           </button>
         </div>

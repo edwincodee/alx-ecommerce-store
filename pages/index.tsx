@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { setProducts } from "@/store/productSlice";
-import { ProductState } from "@/interfaces";
+import { Products, ProductState } from "@/interfaces";
 import Card from "@/components/common/Card";
 
 export default function Home({ products }: ProductState) {
@@ -16,7 +16,7 @@ export default function Home({ products }: ProductState) {
   useEffect(() => {
     if (storedProducts.length > 0) {
       dispatch(setProducts(products));
-      console.log(products);
+      // console.log(products);
     }
   }, [dispatch, products, storedProducts.length]);
 
@@ -38,7 +38,13 @@ export default function Home({ products }: ProductState) {
 export const getServerSideProps: GetServerSideProps = async () => {
   const res = await axios.get("https://fakestoreapi.com/products");
 
-  const products = await res.data;
+  const products = (await res.data) as Products[];
+
+  // const products = allProducts.map((product: Products) => ({
+  //   ...product,
+  //   quantity: 1,
+  //   itemPrice: product.price,
+  // }));
 
   return {
     props: {

@@ -45,7 +45,7 @@ const CartModal: React.FC = () => {
                   <div>
                     <p className="font-medium">{item.title}</p>
                     <p className="text-sm text-gray-600">
-                      Price: ${item.price}
+                      Price: ${item.itemPrice}
                     </p>
                     <p className="text-sm text-gray-600 mt-1">
                       Quantity: {item.quantity}
@@ -53,7 +53,7 @@ const CartModal: React.FC = () => {
                   </div>
                 </div>
                 <button
-                  onClick={() => dispatch(removeFromCart(item.id))}
+                  onClick={() => dispatch(removeFromCart(item))}
                   className="bg-gray-200 rounded-full hover:underline text-sm p-1 cursor-pointer"
                 >
                   <MdOutlineDelete size={20} className="text-red-400" />
