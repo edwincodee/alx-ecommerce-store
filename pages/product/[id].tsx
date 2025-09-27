@@ -5,6 +5,9 @@ import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import { MdOutlineAdd, MdOutlineHorizontalRule } from "react-icons/md";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
+import { addToCart } from "@/store/cartSlice";
 
 interface ProductPageProps {
   product: Products;
@@ -12,6 +15,8 @@ interface ProductPageProps {
 
 const Product: React.FC<ProductPageProps> = ({ product }) => {
   const [toggleInfo, setToggleInfo] = useState<boolean | (() => boolean)>(true);
+
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <div className=" p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-3xl mx-auto">
@@ -51,7 +56,10 @@ const Product: React.FC<ProductPageProps> = ({ product }) => {
                 <MdOutlineAdd />
               </button>
             </div>
-            <button className="px-4 py-2 bg-gray-900 text-white rounded-full hover:bg-blue-700 cursor-pointer">
+            <button
+              onClick={() => dispatch(addToCart(product))}
+              className="px-4 py-2 bg-gray-900 text-white rounded-full hover:bg-blue-700 cursor-pointer"
+            >
               Add to Cart
             </button>
           </div>

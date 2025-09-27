@@ -1,3 +1,5 @@
+import { toggleCart } from "@/store/cartSlice";
+import { RootState } from "@/store/store";
 import Link from "next/link";
 import {
   MdArrowDropUp,
@@ -6,8 +8,14 @@ import {
   MdOutlineSearch,
   MdOutlineShoppingCart,
 } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header: React.FC = () => {
+  const dispatch = useDispatch();
+  const totalItem = useSelector((state: RootState) =>
+    state.cart.cartProucts.reduce((acc, item) => acc + item.quantity, 0)
+  );
+
   const links: string[] = ["Home", "Shop"];
   return (
     <div className="py-5 text-sm">
@@ -55,12 +63,15 @@ const Header: React.FC = () => {
           </div>
 
           {/* cart */}
-          <div className="relative ">
+          <div
+            className="relative cursor-pointer "
+            onClick={() => dispatch(toggleCart())}
+          >
             {/* <button> */}
             <MdOutlineShoppingCart size={20} />
             {/* </button> */}
             <div className="absolute -top-3 -right-2 bg-red-400 rounded-full px-1.5 py-0.5 text-white text-xs">
-              1
+              {totalItem}
             </div>
           </div>
         </div>

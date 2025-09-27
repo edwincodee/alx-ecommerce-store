@@ -1,3 +1,4 @@
+import CartModal from "@/components/common/CartModal";
 import Layout from "@/components/layout/Layout";
 import { store } from "@/store/store";
 import "@/styles/globals.css";
@@ -9,6 +10,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <Layout>
         <Component {...pageProps} />
+        <CartModal />
       </Layout>
     </Provider>
   );

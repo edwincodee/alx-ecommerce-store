@@ -7,10 +7,12 @@ interface CartItem extends Products {
 
 interface CartState {
   cartProucts: CartItem[];
+  isModalOpen: boolean;
 }
 
 const initialState: CartState = {
   cartProucts: [],
+  isModalOpen: false,
 };
 
 export const cartSlice = createSlice({
@@ -49,6 +51,9 @@ export const cartSlice = createSlice({
     clearCart: (state) => {
       state.cartProucts = [];
     },
+    toggleCart: (state) => {
+      state.isModalOpen = !state.isModalOpen;
+    },
   },
 });
 
@@ -58,6 +63,7 @@ export const {
   increaseQuantity,
   decreaseQuantity,
   clearCart,
+  toggleCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
