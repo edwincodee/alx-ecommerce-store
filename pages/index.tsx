@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "@/store/store";
 import { setProducts } from "@/store/productSlice";
 import { Products, ProductState } from "@/interfaces";
 import Card from "@/components/common/Card";
+import Error from "next/error";
 
 export default function Home({ products }: ProductState) {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,7 +27,7 @@ export default function Home({ products }: ProductState) {
         Explore All Products
       </h3>
 
-      <div className="grid md:grid-cols-3 gap-10">
+      <div className="grid md:grid-cols-3 gap-10 w-[90%] m-auto">
         {products.map((product) => (
           <Card key={product.id} product={product} />
         ))}
@@ -36,19 +37,36 @@ export default function Home({ products }: ProductState) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await axios.get("https://fakestoreapi.com/products");
+  try {
+    const res = await axios.get("https://fakestoreapi.com/products");
+    const products = (await res.data) as Products[];
+    return {
+      props: {
+        products,
+      },
+    };
+  } catch (error: unknown) {
+    let message: string = "An unknown error occured";
+    if (axios.isAxiosError(error)) {
+      message = error.message;
 
-  const products = (await res.data) as Products[];
+      console.error("Axios Fetch Error:", error.message);
+    } else if (error instanceof Error) {
+      message = error.message;
+      console.log(message);
+    }
 
-  // const products = allProducts.map((product: Products) => ({
-  //   ...product,
-  //   quantity: 1,
-  //   itemPrice: product.price,
-  // }));
+    return {
+      props: {
+        products: [],
+        error: "Unable to load products right now",
+      },
+    };
 
-  return {
-    props: {
-      products,
-    },
-  };
+    // const products = allProducts.map((product: Products) => ({
+    //   ...product,
+    //   quantity: 1,
+    //   itemPrice: product.price,
+    // }));
+  }
 };
