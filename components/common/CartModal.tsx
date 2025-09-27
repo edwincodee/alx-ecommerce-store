@@ -45,7 +45,10 @@ const CartModal: React.FC = () => {
                   <div>
                     <p className="font-medium">{item.title}</p>
                     <p className="text-sm text-gray-600">
-                      Price: ${item.itemPrice}
+                      Price: ${item.price}{" "}
+                      <span className="px-5">
+                        Quantity price {item.itemPrice.toFixed(2)}
+                      </span>
                     </p>
                     <p className="text-sm text-gray-600 mt-1">
                       Quantity: {item.quantity}

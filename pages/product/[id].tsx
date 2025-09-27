@@ -16,7 +16,7 @@ interface ProductPageProps {
 const Product: React.FC<ProductPageProps> = ({ product }) => {
   const [toggleInfo, setToggleInfo] = useState<boolean | (() => boolean)>(true);
   const [quan, setQuan] = useState<number>(1);
-  const [itemPrice, setItemPrice] = useState<number>(0);
+  const [itemPrice, setItemPrice] = useState<number>(product?.price);
 
   const dispatch = useDispatch<AppDispatch>();
   return (
