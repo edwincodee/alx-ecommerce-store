@@ -11,15 +11,18 @@ const Card: React.FC<PropsProduct> = ({ product }) => {
       key={product.id}
       className="py-5 shadow bg-gray-50 rounded-lg flex flex-col justify-center items-center"
     >
-      <Link href={`product/${product.id}`}>
-        <Image
-          src={`${product.image}`}
-          alt={`${product.title} image`}
-          width={120}
-          height={100}
-        />
+      <Link href={`/product/${product.id}`}>
+        <div className="relative w-2/3 ">
+          <Image
+            src={`${product.image}`}
+            alt={`${product.title} image`}
+            width={1500}
+            height={200}
+            className="object-contain"
+          />
+        </div>
       </Link>
-      <div className="text-lg font-semibold mt-5">
+      <div className="text-lg font-semibold mt-5 px-2">
         <h5>{product.title.slice(0, 25)} ...</h5>
         <div className="flex justify-between mt-3">
           <p className="text-blue-500">${product.price}</p>
