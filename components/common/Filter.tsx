@@ -1,35 +1,13 @@
-import { Products } from "@/interfaces";
-import {
-  setCategory,
-  setCategoryProducts,
-  setSearch,
-} from "@/store/filterSlice";
-import { filter } from "@/store/productSlice";
+import { setCategory, setSearch } from "@/store/filterSlice";
 import { AppDispatch, RootState } from "@/store/store";
-import Image from "next/image";
-import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  Dispatch,
-  SetStateAction,
-} from "react";
-import { MdArrowDropUp, MdMenu, MdOutlineSearch } from "react-icons/md";
+import React, { ChangeEvent } from "react";
+import { MdOutlineSearch } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
 interface FilterProps {
-  // searchProduct: string;
-  // setSearch: Dispatch<SetStateAction<string>>;
-  // category: string;
-  // setCategory: Dispatch<SetStateAction<string>>;
   categories: string[];
 }
-const Filter: React.FC<FilterProps> = ({
-  // searchProduct,
-  // setCategory,
-  // category,
-  // setSearch,
-  categories,
-}) => {
+const Filter: React.FC<FilterProps> = ({ categories }) => {
   const state = useSelector((state: RootState) => state);
   const dispatch = useDispatch<AppDispatch>();
   return (
@@ -39,14 +17,6 @@ const Filter: React.FC<FilterProps> = ({
         onChange={(e: ChangeEvent<HTMLSelectElement>) => {
           {
             dispatch(setCategory(e.target.value));
-            // state.products.products?.map(
-            //   (product) =>
-            //     product.category.toLowerCase() ==
-            //       state.filtered.category.toLowerCase() &&
-            //     dispatch(setCategoryProducts(product))
-            // );
-
-            // dispatch(filter());
           }
         }}
         className=" px-4 py-2 outline-none border-none bg-gray-100 w-36 p rounded-full mb-5 md:mb-0"
@@ -79,25 +49,3 @@ const Filter: React.FC<FilterProps> = ({
 };
 
 export default Filter;
-// <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-//   {filteredProducts.map((product: Products) => (
-//     <div key={product.id} className="border p-4 rounded shadow">
-//       <div className="relative w-full h-40">
-//         <Image
-//           src={product.image}
-//           alt={product.title}
-//           fill
-//           className="object-contain rounded"
-//         />
-//       </div>
-//       <h2 className="font-bold mt-2">{product.title}</h2>
-//       <p className="text-gray-600">${product.price}</p>
-//     </div>
-//   ))}
-// </div>
-
-//     {filteredProducts.length === 0 && (
-//       <p className="text-gray-500 mt-6">No products found.</p>
-//     )}
-//   </div>
-// );
