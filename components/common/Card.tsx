@@ -24,7 +24,7 @@ const Card: React.FC<PropsProduct> = ({ product }) => {
             alt={`${product.title} image`}
             width={1500}
             height={200}
-            className="object-contain"
+            className="object-contain pl-10"
           />
         </div>
       </Link>
@@ -36,7 +36,11 @@ const Card: React.FC<PropsProduct> = ({ product }) => {
           <p className="text-blue-500">${product.price}</p>
           <button
             className="text-sm bg-blue-400 px-2 py-1 rounded-full text-white cursor-pointer"
-            onClick={() => dispatch(addToCart(product))}
+            onClick={() =>
+              dispatch(
+                addToCart({ ...product, quantity: 1, itemPrice: product.price })
+              )
+            }
           >
             Add to cart
           </button>

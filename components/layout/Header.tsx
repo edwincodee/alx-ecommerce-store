@@ -17,8 +17,7 @@ const Header: React.FC = () => {
   ];
 
   const dispatch = useDispatch();
-  const itemsTotal = useSelector((state: RootState) => state).cart
-    .totalCartItem;
+  const cart = useSelector((state: RootState) => state.cart);
   const links: string[] = ["Home", "Shop"];
   return (
     <div className="py-5 text-sm">
@@ -49,7 +48,9 @@ const Header: React.FC = () => {
           >
             <MdOutlineShoppingCart size={20} />
             <div className="absolute -top-3 -right-2 bg-red-400 rounded-full px-1.5 py-0.5 text-white text-xs">
-              {itemsTotal}
+              {cart.cartProucts
+                .reduce((acc, item) => item.quantity, 0)
+                .toFixed()}
             </div>
           </div>
         </div>

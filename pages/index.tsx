@@ -1,30 +1,42 @@
-import { GetServerSideProps } from "next";
+// import { GetServerSideProps } from "next";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { setProducts } from "@/store/productSlice";
-import { Products, ProductState } from "@/interfaces";
+// import { Products, ProductState } from "@/interfaces";
 import Card from "@/components/common/Card";
 
-export default function Home({ products }: ProductState) {
+export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
-  const items = useSelector((state: RootState) => state.products);
+  const items = useSelector((state: RootState) => state.products.products);
   const { category, search } = useSelector(
     (state: RootState) => state.filtered
   );
-
   useEffect(() => {
-    if (items.products.length > 0) {
-      dispatch(setProducts(products));
-      // console.log(products);
-    }
-  }, [dispatch, products, items.products.length]);
+    const fetchProducts = async () => {
+      try {
+        // call api
+        const res = await axios.get("/api/products");
+        dispatch(setProducts(res.data));
+      } catch (err) {
+        console.error("Failed to fetch products:", err);
+      }
+    };
+    fetchProducts();
+  }, [dispatch]);
 
-  const matchedCategory = products.filter((product) => {
+  // useEffect(() => {
+  //   if (items.products.length > 0) {
+  //     dispatch(setProducts(products));
+  //     // console.log(products);
+  //   }
+  // }, [dispatch, products, items.products.length]);
+
+  const matchedCategory = items.filter((product) => {
     return product.category.toLowerCase() == category.toLowerCase();
   });
-  const matchedSearch = products.filter((product) => {
+  const matchedSearch = items.filter((product) => {
     return product.title.toLowerCase().includes(search.toLowerCase());
   });
   return (
@@ -33,9 +45,9 @@ export default function Home({ products }: ProductState) {
         Explore All Products
       </h3>
 
-      <div className="grid md:grid-cols-3 gap-10 w-[90%] m-auto">
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-10 w-[90%] m-auto">
         {search == "" && category.toLowerCase() == "all"
-          ? products.map((product) => (
+          ? items.map((product) => (
               // display all product
               <Card key={product.id} product={product} />
             ))
@@ -58,31 +70,31 @@ export default function Home({ products }: ProductState) {
 }
 
 // fetch product with axios using server side
-export const getServerSideProps: GetServerSideProps = async () => {
-  try {
-    const res = await axios.get("https://fakestoreapi.com/products");
-    const products = (await res.data) as Products[];
-    return {
-      props: {
-        products,
-      },
-    };
-  } catch (error: unknown) {
-    let message: string = "An unknown error occured";
-    if (axios.isAxiosError(error)) {
-      message = error.message;
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   try {
+//     const res = await axios.get("https://fakestoreapi.com/products");
+//     const products = (await res.data) as Products[];
+//     return {
+//       props: {
+//         products,
+//       },
+//     };
+//   } catch (error: unknown) {
+//     let message: string = "An unknown error occured";
+//     if (axios.isAxiosError(error)) {
+//       message = error.message;
 
-      console.error("Axios Fetch Error:", error.message);
-    } else if (error instanceof Error) {
-      message = error.message;
-      console.log(message);
-    }
+//       console.error("Axios Fetch Error:", error.message);
+//     } else if (error instanceof Error) {
+//       message = error.message;
+//       console.log(message);
+//     }
 
-    return {
-      props: {
-        products: [],
-        error: "Unable to load products right now",
-      },
-    };
-  }
-};
+//     return {
+//       props: {
+//         products: [],
+//         error: "Unable to load products right now",
+//       },
+//     };
+//   }
+// };

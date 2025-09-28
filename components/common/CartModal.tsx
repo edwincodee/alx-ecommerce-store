@@ -50,7 +50,7 @@ const CartModal: React.FC = () => {
                     <p className="text-sm text-gray-600">
                       Price: ${item.price}{" "}
                       <span className="px-5">
-                        Quantity price {item.itemPrice.toFixed(2)}
+                        Quantity price: {item?.itemPrice.toFixed(2)}
                       </span>
                     </p>
                     <p className="text-sm text-gray-600 mt-1">
@@ -78,7 +78,7 @@ const CartModal: React.FC = () => {
               $
               {cartProucts
                 .reduce((acc, item) => acc + item.price * item.quantity, 0)
-                .toFixed(2)}
+                .toFixed()}
             </p>
           </div>
         )}

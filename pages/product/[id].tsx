@@ -74,7 +74,7 @@ const Product: React.FC<ProductPageProps> = ({ product }) => {
                 onClick={() => {
                   // add price and total product price
                   setQuan(quan + 1);
-                  setItemPrice(itemPrice + product?.price);
+                  setItemPrice(itemPrice + product.price);
                 }}
               >
                 <MdOutlineAdd />
