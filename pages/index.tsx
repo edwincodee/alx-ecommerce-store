@@ -73,14 +73,18 @@ export default function Home({ products }: ProductState) {
           ? products.map((product) => (
               <Card key={product.id} product={product} />
             ))
+          : category.toLowerCase() !== "all" && search == ""
+          ? matchedCategory.map((product) => (
+              <Card key={product.id} product={product} />
+            ))
           : matchedSearch.map((product) => (
               <Card key={product.id} product={product} />
             ))}
       </div>
 
-      {/* {filteredProducts.length === 0 && (
+      {matchedSearch.length === 0 && (
         <p className="text-gray-500 mt-6">No products found.</p>
-      )} */}
+      )}
     </div>
   );
 }
