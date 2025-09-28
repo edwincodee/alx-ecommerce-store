@@ -1,6 +1,6 @@
 // single product detail
 import { Products } from "@/interfaces";
-import axios from "axios";
+// import axios from "axios";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Rating from "@mui/material/Rating";
@@ -134,15 +134,26 @@ const Product: React.FC<ProductPageProps> = ({ product }) => {
 
 // fetch individual product based on id passed
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.params!;
-  const res = await axios.get(`https://fakestoreapi.com/products/${id}`);
-  const product = (await res.data) as Products;
+  try {
+    const { id } = context.params!;
+    const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const product = (await res.json()) as Products;
 
-  return {
-    props: {
-      product,
-    },
-  };
+    return {
+      props: {
+        product,
+      },
+    };
+  } catch (error: unknown) {
+    const message: string = "An unknown error occured";
+    console.log(message, error);
+    return {
+      props: {
+        products: [],
+        error: "Unable to load product detail right now",
+      },
+    };
+  }
 };
 
 export default Product;

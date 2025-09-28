@@ -1,16 +1,11 @@
-// import { GetServerSideProps } from "next";
-import axios from "axios";
+import { GetServerSideProps } from "next";
+// import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { setProducts } from "@/store/productSlice";
 import { Products, ProductState } from "@/interfaces";
 import Card from "@/components/common/Card";
-import { GetServerSideProps } from "next";
-
-interface HomeProps {
-  products: Products[];
-}
 
 export default function Home({ products }: ProductState) {
   const dispatch = useDispatch<AppDispatch>();
@@ -87,15 +82,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   } catch (error: unknown) {
     const message: string = "An unknown error occured";
     console.log(message, error);
-    // if (axios.isAxiosError(error)) {
-    //   message = error.message;
-
-    //   console.error("Axios Fetch Error:", error.message);
-    // } else if (error instanceof Error) {
-    //   message = error.message;
-    //   console.log(message);
-    // }
-
     return {
       props: {
         products: [],
