@@ -1,3 +1,4 @@
+// filter product either by search or selection
 import { setCategory, setSearch } from "@/store/filterSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import React, { ChangeEvent } from "react";
@@ -34,7 +35,6 @@ const Filter: React.FC<FilterProps> = ({ categories }) => {
           value={state.filtered.search}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             dispatch(setSearch(e.target.value));
-            // dispatch(filter());
           }}
           type="text"
           className="bg-gray-100 rounded-full py-2 px-4 w-72 placeholder:text-sm outline-none"

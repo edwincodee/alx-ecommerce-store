@@ -1,8 +1,9 @@
+// cart modal
 import { useSelector, useDispatch } from "react-redux";
 import Image from "next/image";
 import { RootState } from "@/store/store";
 import { removeFromCart, toggleCart } from "@/store/cartSlice";
-import { MdOutlineDelete } from "react-icons/md";
+import { MdOutlineCancel, MdOutlineDelete } from "react-icons/md";
 
 const CartModal: React.FC = () => {
   const dispatch = useDispatch();
@@ -15,17 +16,19 @@ const CartModal: React.FC = () => {
   return (
     <div className="fixed inset-0 flex  justify-end bg-black/50 z-50">
       <div className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg relative">
+        {/* cart header */}
         <div className="border-b border-gray-200">
           <h2 className="text-xl font-bold mb-7">Cart View</h2>
           <button
             onClick={() => dispatch(toggleCart())}
             className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
           >
-            ✕
+            <MdOutlineCancel size={25} />
           </button>
         </div>
 
         {cartProucts.length === 0 ? (
+          // content if cart is empty
           <p className="text-gray-600 mt-10">Your cart is empty</p>
         ) : (
           <div className="space-y-4 mt-10">
@@ -55,6 +58,8 @@ const CartModal: React.FC = () => {
                     </p>
                   </div>
                 </div>
+
+                {/* delete item from cart */}
                 <button
                   onClick={() => dispatch(removeFromCart(item))}
                   className="bg-gray-200 rounded-full hover:underline text-sm p-1 cursor-pointer"

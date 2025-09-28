@@ -1,3 +1,4 @@
+// single product detail
 import { Products } from "@/interfaces";
 import axios from "axios";
 import { GetServerSideProps } from "next";
@@ -15,13 +16,16 @@ interface ProductPageProps {
 
 const Product: React.FC<ProductPageProps> = ({ product }) => {
   const [toggleInfo, setToggleInfo] = useState<boolean | (() => boolean)>(true);
+  // quantity for each product
   const [quan, setQuan] = useState<number>(1);
+  // item price if more than one is selected
   const [itemPrice, setItemPrice] = useState<number>(product?.price);
 
   const dispatch = useDispatch<AppDispatch>();
   return (
     <div className=" p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-3xl mx-auto">
+        {/* product image */}
         <div className="relative w-full h-80  bg-gray-200 rounded-lg">
           <Image
             src={product?.image}
@@ -32,6 +36,7 @@ const Product: React.FC<ProductPageProps> = ({ product }) => {
         </div>
 
         <div>
+          {/* product details */}
           <h1 className="text-3xl font-semibold mb-2">{product?.title}</h1>
           <div className="flex items-center gap-3 my-5">
             <Rating
@@ -54,6 +59,7 @@ const Product: React.FC<ProductPageProps> = ({ product }) => {
                 className="font-bold border-r pr-2 border-gray-300"
                 onClick={() => {
                   if (quan > 1) {
+                    // reduce price and total product price
                     setQuan(quan - 1);
                     setItemPrice(itemPrice - product?.price);
                   }
@@ -61,10 +67,12 @@ const Product: React.FC<ProductPageProps> = ({ product }) => {
               >
                 <MdOutlineHorizontalRule />
               </button>
+              {/* increase or decrease product quantity */}
               <span>{quan}</span>
               <button
                 className="font-bold border-l pl-2 border-gray-300"
                 onClick={() => {
+                  // add price and total product price
                   setQuan(quan + 1);
                   setItemPrice(itemPrice + product?.price);
                 }}
@@ -74,6 +82,7 @@ const Product: React.FC<ProductPageProps> = ({ product }) => {
             </div>
             <button
               onClick={() =>
+                // add product to cart including price and total quantity price
                 dispatch(
                   addToCart({
                     ...product,
@@ -123,6 +132,7 @@ const Product: React.FC<ProductPageProps> = ({ product }) => {
   );
 };
 
+// fetch individual product based on id passed
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params!;
   const res = await axios.get(`https://fakestoreapi.com/products/${id}`);

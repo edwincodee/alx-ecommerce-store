@@ -1,3 +1,4 @@
+// single product card
 import { Products } from "@/interfaces";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,6 +16,7 @@ const Card: React.FC<PropsProduct> = ({ product }) => {
       key={product.id}
       className="py-5 shadow bg-gray-50 rounded-lg flex flex-col justify-center items-center"
     >
+      {/* link to product detail */}
       <Link href={`/product/${product.id}`}>
         <div className="relative w-2/3 ">
           <Image
@@ -26,6 +28,8 @@ const Card: React.FC<PropsProduct> = ({ product }) => {
           />
         </div>
       </Link>
+
+      {/* product info */}
       <div className="text-lg font-semibold mt-5 px-2">
         <h5>{product.title.slice(0, 25)} ...</h5>
         <div className="flex justify-between mt-3">

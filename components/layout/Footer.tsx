@@ -1,3 +1,4 @@
+// footer section
 import Link from "next/link";
 import {
   MdOutlineCopyright,
@@ -9,7 +10,7 @@ import {
 
 const Footer: React.FC = () => {
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-400">
       <div className="flex justify-around py-10">
         <div>
           <h3 className="font-bold text-lg">Help & Support</h3>

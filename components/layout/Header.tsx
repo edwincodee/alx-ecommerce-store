@@ -1,3 +1,4 @@
+// Header content
 import { toggleCart } from "@/store/cartSlice";
 import { RootState } from "@/store/store";
 import Link from "next/link";
@@ -6,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Filter from "../common/Filter";
 
 const Header: React.FC = () => {
+  // product category list
   const categories: string[] = [
     "All",
     "Men's clothing",
@@ -24,6 +26,7 @@ const Header: React.FC = () => {
         <h2 className="font-semibold text-blue-700 text-2xl italic">
           <Link href={"/"}>EddyStore</Link>
         </h2>
+        {/* filter component (select and input) */}
         <Filter categories={categories} />
 
         {/* cart and sign in option */}

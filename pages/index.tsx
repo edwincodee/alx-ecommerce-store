@@ -36,17 +36,20 @@ export default function Home({ products }: ProductState) {
       <div className="grid md:grid-cols-3 gap-10 w-[90%] m-auto">
         {search == "" && category.toLowerCase() == "all"
           ? products.map((product) => (
+              // display all product
               <Card key={product.id} product={product} />
             ))
           : category.toLowerCase() !== "all" && search == ""
-          ? matchedCategory.map((product) => (
+          ? // display if catergory citeria are met
+            matchedCategory.map((product) => (
               <Card key={product.id} product={product} />
             ))
           : matchedSearch.map((product) => (
+              // display if search criteria are met
               <Card key={product.id} product={product} />
             ))}
       </div>
-
+      {/* display if not searvh product in products */}
       {matchedSearch.length === 0 && (
         <p className="text-gray-500 mt-6">No products found.</p>
       )}
@@ -54,6 +57,7 @@ export default function Home({ products }: ProductState) {
   );
 }
 
+// fetch product with axios using server side
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const res = await axios.get("https://fakestoreapi.com/products");
