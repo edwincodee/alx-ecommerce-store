@@ -9,10 +9,37 @@ import {
   MdOutlineShoppingCart,
 } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import Filter from "../common/Filter";
+import { useEffect, useState } from "react";
+import { setProducts } from "@/store/productSlice";
+import axios from "axios";
+import { GetServerSideProps } from "next";
+import { Products } from "@/interfaces";
 
+interface HeaderProps {
+  products: Products[];
+}
 const Header: React.FC = () => {
+  const [searchProduct, setSearch] = useState<string>("");
+  const [category, setCategory] = useState<string>("all");
+  const categories: string[] = [
+    "All",
+    "Men's clothing",
+    "Women's clothing",
+    "Jewelery",
+    "Electronics",
+  ];
+
   const dispatch = useDispatch();
-  const totalItem = useSelector((state: RootState) => state.cart.totalCartItem);
+  const itemsTotal = useSelector((state: RootState) => state).cart
+    .totalCartItem;
+
+  // useEffect(() => {
+  //   if (items.products.products.length > 0) {
+  //     dispatch(setProducts(products));
+  //     // console.log(products);
+  //   }
+  // }, [dispatch, products, items.products.products.length]);
 
   const links: string[] = ["Home", "Shop"];
   return (
@@ -21,31 +48,13 @@ const Header: React.FC = () => {
         <h2 className="font-semibold text-blue-700 text-2xl italic">
           <Link href={"/"}>EddyStore</Link>
         </h2>
-
-        <div className="my-5 md:my-0">
-          <div className="flex gap-8">
-            {/* catergory bar */}
-            <div className="flex items-center gap-3 bg-gray-100 rounded-full px-4 py-2">
-              <MdMenu size={20} className="" />
-              <span className="text-gray-500">Laptops and all</span>
-              <button>
-                <MdArrowDropUp />
-              </button>
-            </div>
-
-            {/* search bar */}
-            <div className="flex items-center">
-              <input
-                type="text"
-                className="bg-gray-100 rounded-full py-2 px-4 w-60 placeholder:text-sm outline-none"
-                placeholder="What are you shopping for?"
-              />
-              <button className="-ml-6">
-                <MdOutlineSearch size={20} className="text-gray-700" />
-              </button>
-            </div>
-          </div>
-        </div>
+        <Filter
+          categories={categories}
+          // category={category}
+          // setCategory={setCategory}
+          // searchProduct={searchProduct}
+          // setSearch={setSearch}
+        />
 
         {/* cart and sign in option */}
         <div className="flex justify-between items-center">
@@ -69,7 +78,7 @@ const Header: React.FC = () => {
             <MdOutlineShoppingCart size={20} />
             {/* </button> */}
             <div className="absolute -top-3 -right-2 bg-red-400 rounded-full px-1.5 py-0.5 text-white text-xs">
-              {totalItem}
+              {itemsTotal}
             </div>
           </div>
         </div>
@@ -95,3 +104,32 @@ const Header: React.FC = () => {
   );
 };
 export default Header;
+
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   try {
+//     const res = await axios.get("https://fakestoreapi.com/products");
+//     const products = (await res.data) as Products[];
+//     return {
+//       props: {
+//         products,
+//       },
+//     };
+//   } catch (error: unknown) {
+//     let message: string = "An unknown error occured";
+//     if (axios.isAxiosError(error)) {
+//       message = error.message;
+
+//       console.error("Axios Fetch Error:", error.message);
+//     } else if (error instanceof Error) {
+//       message = error.message;
+//       console.log(message);
+//     }
+
+//     return {
+//       props: {
+//         products: [],
+//         error: "Unable to load products right now",
+//       },
+//     };
+//   }
+// };

@@ -1,8 +1,11 @@
 import { Products, ProductState } from "@/interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-const initialState: ProductState = {
+interface ProductSlice extends ProductState {
+  filtered: boolean;
+}
+const initialState: ProductSlice = {
   products: [],
+  filtered: false,
 };
 
 export const productSlice = createSlice({
@@ -18,8 +21,11 @@ export const productSlice = createSlice({
 
       state.products = products;
     },
+    filter: (state) => {
+      state.filtered = true;
+    },
   },
 });
 
-export const { setProducts } = productSlice.actions;
+export const { setProducts, filter } = productSlice.actions;
 export default productSlice.reducer;
