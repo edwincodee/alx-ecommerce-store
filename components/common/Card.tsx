@@ -5,11 +5,13 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { addToCart } from "@/store/cartSlice";
+import { useState } from "react";
 
 interface PropsProduct {
   product: Products;
 }
 const Card: React.FC<PropsProduct> = ({ product }) => {
+  const [itemPrice, setItemPrice] = useState<number>(0);
   const dispatch = useDispatch<AppDispatch>();
   return (
     <div
@@ -38,7 +40,14 @@ const Card: React.FC<PropsProduct> = ({ product }) => {
             className="text-sm bg-blue-400 px-2 py-1 rounded-full text-white cursor-pointer"
             onClick={() =>
               dispatch(
-                addToCart({ ...product, quantity: 1, itemPrice: product.price })
+                addToCart({
+                  ...product,
+                  quantity: 1,
+                  itemPrice:
+                    product.price === itemPrice
+                      ? product.price * 2
+                      : product.price,
+                })
               )
             }
           >

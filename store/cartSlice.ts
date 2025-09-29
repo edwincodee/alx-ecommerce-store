@@ -26,8 +26,8 @@ export const cartSlice = createSlice({
         (item) => item.id === action.payload.id
       );
       if (itemExist) {
-        itemExist.quantity += itemExist.quantity;
-        itemExist.itemPrice += itemExist.itemPrice;
+        itemExist.quantity += action.payload.quantity;
+        itemExist.itemPrice += action.payload.itemPrice;
       } else {
         state.cartProucts.unshift(action.payload);
       }

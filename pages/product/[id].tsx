@@ -81,7 +81,7 @@ const Product: React.FC<ProductPageProps> = ({ product }) => {
               </button>
             </div>
             <button
-              onClick={() =>
+              onClick={() => {
                 // add product to cart including price and total quantity price
                 dispatch(
                   addToCart({
@@ -89,8 +89,10 @@ const Product: React.FC<ProductPageProps> = ({ product }) => {
                     quantity: quan,
                     itemPrice: itemPrice,
                   })
-                )
-              }
+                );
+                setQuan(1);
+                setItemPrice(product.price);
+              }}
               className="px-4 py-2 bg-gray-900 text-white rounded-full hover:bg-blue-700 cursor-pointer"
             >
               Add to Cart

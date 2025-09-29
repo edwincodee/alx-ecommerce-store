@@ -48,9 +48,12 @@ const Header: React.FC = () => {
           >
             <MdOutlineShoppingCart size={20} />
             <div className="absolute -top-3 -right-2 bg-red-400 rounded-full px-1.5 py-0.5 text-white text-xs">
-              {cart.cartProucts
-                .reduce((acc, item) => item.quantity, 0)
-                .toFixed()}
+              {
+                /* {cart.cartProucts
+                .reduce((acc, item) =>  item.quantity, 0)
+                .toFixed()} */
+                cart.totalCartItem
+              }
             </div>
           </div>
         </div>
