@@ -16,28 +16,28 @@ const Card: React.FC<PropsProduct> = ({ product }) => {
   return (
     <div
       key={product.id}
-      className="py-5 shadow bg-gray-50 rounded-lg flex flex-col justify-center items-center"
+      className="py-5 shadow bg-gray-50 rounded-lg col-span-1"
     >
       {/* link to product detail */}
-      <Link href={`/product/${product.id}`}>
-        <div className="relative w-2/3 ">
+      <div className="relative flex flex-col items-center justify-center h-34">
+        <Link href={`/product/${product.id}`}>
           <Image
             src={`${product.image}`}
             alt={`${product.title} image`}
-            width={1500}
-            height={200}
-            className="object-contain pl-10"
+            width={70}
+            height={50}
+            className="object-cover"
           />
-        </div>
-      </Link>
+        </Link>
+      </div>
 
       {/* product info */}
-      <div className="text-lg font-semibold mt-5 px-2">
-        <h5>{product.title.slice(0, 25)} ...</h5>
-        <div className="flex justify-between mt-3">
+      <div className="text-lg font-semibold px-2 gap-x-10">
+        <h5 className="h-20">{product.title.slice(0, 25)} ...</h5>
+        <div className="flex justify-between items-center">
           <p className="text-blue-500">${product.price}</p>
           <button
-            className="text-sm bg-blue-400 px-2 py-1 rounded-full text-white cursor-pointer"
+            className="text-sm bg-blue-400 px-2 py-1 rounded-full text-white cursor-pointer hover:bg-blue-700"
             onClick={() =>
               dispatch(
                 addToCart({

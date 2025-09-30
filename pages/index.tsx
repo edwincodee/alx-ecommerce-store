@@ -45,7 +45,7 @@ export default function Home({ products }: ProductState) {
         Explore All Products
       </h3>
 
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-10 w-[90%] m-auto">
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-8 w-[90%] m-auto">
         {search == "" && category.toLowerCase() == "all"
           ? products.map((product) => (
               // display all product

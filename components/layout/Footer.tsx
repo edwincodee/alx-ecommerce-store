@@ -10,8 +10,8 @@ import {
 
 const Footer: React.FC = () => {
   return (
-    <div className="bg-gray-400">
-      <div className="flex justify-around py-10">
+    <div className="bg-gray-400 mt-12">
+      <div className="flex sm:justify-around py-10 flex-col sm:flex-row justify-center pl-10 sm:pl-0">
         <div>
           <h3 className="font-bold text-lg">Help & Support</h3>
 
@@ -64,12 +64,10 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex justify-around items-center bg-gray-200 py-1">
+      <div className="flex justify-around items-center bg-gray-950 py-1 text-gray-200">
         <div>
           <MdOutlineCopyright className="inline" />
-          <span className="text-gray-600 px-1">
-            2025. All rights reserved by EddyStore
-          </span>
+          <span className="px-1">2025. All rights reserved by EddyStore</span>
         </div>
 
         <div className="flex items-center text-blue-500 gap-x-1">
