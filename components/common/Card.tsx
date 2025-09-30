@@ -32,9 +32,9 @@ const Card: React.FC<PropsProduct> = ({ product }) => {
       </div>
 
       {/* product info */}
-      <div className="text-lg font-semibold px-2 gap-x-10">
-        <h5 className="h-20">{product.title.slice(0, 25)} ...</h5>
-        <div className="flex justify-between items-center">
+      <div className="text-lg font-semibold px-2 ">
+        <h5 className="h-15 text-center">{product.title.slice(0, 25)} ...</h5>
+        <div className="flex justify-around items-center">
           <p className="text-blue-500">${product.price}</p>
           <button
             className="text-sm bg-blue-400 px-2 py-1 rounded-full text-white cursor-pointer hover:bg-blue-700"
