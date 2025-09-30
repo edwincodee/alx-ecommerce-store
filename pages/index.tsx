@@ -40,7 +40,7 @@ export default function Home({ products }: ProductState) {
     return product.title.toLowerCase().includes(search.toLowerCase());
   });
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 pb-10">
       <h3 className="font-bold md:text-2xl text-lg my-5">
         Explore All Products
       </h3>

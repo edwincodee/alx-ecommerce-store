@@ -10,7 +10,7 @@ import {
 
 const Footer: React.FC = () => {
   return (
-    <div className="bg-gray-400 mt-12">
+    <div className="bg-gray-400">
       <div className="flex sm:justify-around py-10 flex-col sm:flex-row justify-center pl-10 sm:pl-0">
         <div>
           <h3 className="font-bold text-lg">Help & Support</h3>
